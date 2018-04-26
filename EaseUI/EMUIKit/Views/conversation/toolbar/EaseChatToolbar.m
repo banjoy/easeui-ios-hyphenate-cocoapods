@@ -116,15 +116,15 @@
     
     //toolbar
     _toolbarView = [[UIView alloc] initWithFrame:self.bounds];
-//    第三方修改
-//    _toolbarView.backgroundColor = [UIColor clearColor];
-    _toolbarBackgroundImageView.backgroundColor = [UIColor whiteColor];
-//    第三方修改完成
+    _toolbarView.backgroundColor = [UIColor clearColor];
     [self addSubview:_toolbarView];
     
     _toolbarBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _toolbarView.frame.size.width, _toolbarView.frame.size.height)];
     _toolbarBackgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    _toolbarBackgroundImageView.backgroundColor = [UIColor clearColor];
+//    第三方修改
+//    _toolbarBackgroundImageView.backgroundColor = [UIColor clearColor];
+    _toolbarBackgroundImageView.backgroundColor = [UIColor whiteColor];
+//    第三方修改完成
     [_toolbarView addSubview:_toolbarBackgroundImageView];
     
     //input textview
