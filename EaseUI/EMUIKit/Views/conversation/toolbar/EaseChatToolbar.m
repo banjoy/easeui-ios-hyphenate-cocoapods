@@ -116,7 +116,10 @@
     
     //toolbar
     _toolbarView = [[UIView alloc] initWithFrame:self.bounds];
-    _toolbarView.backgroundColor = [UIColor clearColor];
+//    第三方修改
+//    _toolbarView.backgroundColor = [UIColor clearColor];
+    _toolbarBackgroundImageView.backgroundColor = [UIColor whiteColor];
+//    第三方修改完成
     [self addSubview:_toolbarView];
     
     _toolbarBackgroundImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, _toolbarView.frame.size.width, _toolbarView.frame.size.height)];
@@ -143,8 +146,12 @@
     UIButton *styleChangeButton = [[UIButton alloc] init];
     styleChangeButton.accessibilityIdentifier = @"style";
     styleChangeButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [styleChangeButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_record"] forState:UIControlStateNormal];
-    [styleChangeButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_keyboard"] forState:UIControlStateSelected];
+//    第三方修改
+//    [styleChangeButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_record"] forState:UIControlStateNormal];
+//    [styleChangeButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_keyboard"] forState:UIControlStateSelected];
+    [styleChangeButton setImage:[UIImage imageNamed:@"im_record"] forState:UIControlStateNormal];
+    [styleChangeButton setImage:[UIImage imageNamed:@"im_keyboard"] forState:UIControlStateSelected];
+//    第三方修改完成
     [styleChangeButton addTarget:self action:@selector(styleButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     EaseChatToolbarItem *styleItem = [[EaseChatToolbarItem alloc] initWithButton:styleChangeButton withView:nil];
@@ -154,11 +161,19 @@
     self.recordButton = [[UIButton alloc] initWithFrame:self.inputTextView.frame];
     self.recordButton.accessibilityIdentifier = @"record";
     self.recordButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
-    [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    [self.recordButton setBackgroundImage:[[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_recordBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
-    [self.recordButton setBackgroundImage:[[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_recordSelectedBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
-    [self.recordButton setTitle:kTouchToRecord forState:UIControlStateNormal];
-    [self.recordButton setTitle:kTouchToFinish forState:UIControlStateHighlighted];
+//    第三方修改
+//    [self.recordButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+//    [self.recordButton setBackgroundImage:[[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_recordBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
+//    [self.recordButton setBackgroundImage:[[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_recordSelectedBg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
+//    [self.recordButton setTitle:kTouchToRecord forState:UIControlStateNormal];
+//    [self.recordButton setTitle:kTouchToFinish forState:UIControlStateHighlighted];
+    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"im_record_bg"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateNormal];
+    [self.recordButton setBackgroundImage:[[UIImage imageNamed:@"im_record_bg_select"] stretchableImageWithLeftCapWidth:10 topCapHeight:10] forState:UIControlStateHighlighted];
+    [self.recordButton setTitle:@"按住 说话" forState:UIControlStateNormal];
+    [self.recordButton setTitle:@"松开 结束" forState:UIControlStateHighlighted];
+    [self.recordButton setTitleColor:[UIColor colorWithRed:140/255.0 green:100/255.0 blue:65/255.0 alpha:1] forState:UIControlStateNormal];
+    [self.recordButton setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+//    第三方修改完成
     self.recordButton.hidden = YES;
     [self.recordButton addTarget:self action:@selector(recordButtonTouchDown) forControlEvents:UIControlEventTouchDown];
     [self.recordButton addTarget:self action:@selector(recordButtonTouchUpOutside) forControlEvents:UIControlEventTouchUpOutside];
@@ -172,9 +187,14 @@
     self.faceButton = [[UIButton alloc] init];
     self.faceButton.accessibilityIdentifier = @"face";
     self.faceButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [self.faceButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_face"] forState:UIControlStateNormal];
-    [self.faceButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_faceSelected"] forState:UIControlStateHighlighted];
-    [self.faceButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_keyboard"] forState:UIControlStateSelected];
+//    第三方修改
+//    [self.faceButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_face"] forState:UIControlStateNormal];
+//    [self.faceButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_faceSelected"] forState:UIControlStateHighlighted];
+//    [self.faceButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_keyboard"] forState:UIControlStateSelected];
+    [self.faceButton setImage:[UIImage imageNamed:@"im_expression"] forState:UIControlStateNormal];
+    [self.faceButton setImage:[UIImage imageNamed:@"im_expression_select"] forState:UIControlStateHighlighted];
+    [self.faceButton setImage:[UIImage imageNamed:@"im_keyboard"] forState:UIControlStateSelected];
+//    第三方修改完成
     [self.faceButton addTarget:self action:@selector(faceButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     EaseChatToolbarItem *faceItem = [[EaseChatToolbarItem alloc] initWithButton:self.faceButton withView:self.faceView];
     
@@ -182,9 +202,14 @@
     self.moreButton = [[UIButton alloc] init];
     self.moreButton.accessibilityIdentifier = @"more";
     self.moreButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-    [self.moreButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_more"] forState:UIControlStateNormal];
-    [self.moreButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_moreSelected"] forState:UIControlStateHighlighted];
-    [self.moreButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_keyboard"] forState:UIControlStateSelected];
+//    第三方修改
+//    [self.moreButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_more"] forState:UIControlStateNormal];
+//    [self.moreButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_moreSelected"] forState:UIControlStateHighlighted];
+//    [self.moreButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/chatBar_keyboard"] forState:UIControlStateSelected];
+    [self.moreButton setImage:[UIImage imageNamed:@"im_add"] forState:UIControlStateNormal];
+    [self.moreButton setImage:[UIImage imageNamed:@"im_add_select"] forState:UIControlStateHighlighted];
+    [self.moreButton setImage:[UIImage imageNamed:@"im_keyboard"] forState:UIControlStateSelected];
+//    第三方修改完成
     [self.moreButton addTarget:self action:@selector(moreButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     EaseChatToolbarItem *moreItem = [[EaseChatToolbarItem alloc] initWithButton:self.moreButton withView:self.moreView];
     
@@ -586,7 +611,10 @@
     }
     else if ([text isEqualToString:@"@"]) {
         if ([self.delegate respondsToSelector:@selector(didInputAtInLocation:)]) {
-            if ([self.delegate didInputAtInLocation:range.location]) {
+//            第三方修改 光标位置问题
+//            if ([self.delegate didInputAtInLocation:range.location]) {
+            if ( [self.delegate didInputAtInLocation:textView.selectedRange.location]) {
+//            第三方修改结束
                 [self _willShowInputTextViewToHeight:[self _getTextViewContentH:self.inputTextView]];
                 return NO;
             }
