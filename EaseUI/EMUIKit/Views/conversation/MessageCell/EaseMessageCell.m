@@ -126,7 +126,10 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
     _statusButton.accessibilityIdentifier = @"status";
     _statusButton.translatesAutoresizingMaskIntoConstraints = NO;
     _statusButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [_statusButton setImage:[UIImage imageNamed:@"EaseUIResource.bundle/messageSendFail"] forState:UIControlStateNormal];
+//    第三方修改
+//    [_statusButton setImage:[UIImage easeImageNamed:@"EaseUIResource.bundle/messageSendFail"] forState:UIControlStateNormal];
+    [_statusButton setImage:[UIImage imageNamed:@"im_reload"] forState:UIControlStateNormal];
+//    第三方修改结束
     [_statusButton addTarget:self action:@selector(statusAction) forControlEvents:UIControlEventTouchUpInside];
     _statusButton.hidden = YES;
     [self.contentView addSubview:_statusButton];
@@ -344,17 +347,33 @@ NSString *const EaseMessageCellIdentifierSendFile = @"EaseMessageCellSendFile";
                 break;
             case EMMessageBodyTypeImage:
             {
-                UIImage *image = _model.thumbnailImage;
-                if (!image) {
-                    image = _model.image;
-                    if (!image) {
-                        [_bubbleView.imageView sd_setImageWithURL:[NSURL URLWithString:_model.thumbnailFileURLPath] placeholderImage:[UIImage imageNamed:_model.failImageName]];
-                    } else {
-                        _bubbleView.imageView.image = image;
+//                第三方修改
+//                UIImage *image = _model.thumbnailImage;
+//                if (!image) {
+//                    image = _model.image;
+//                    if (!image) {
+//                        [_bubbleView.imageView sd_setImageWithURL:[NSURL URLWithString:_model.thumbnailFileURLPath] placeholderImage:[UIImage imageNamed:_model.failImageName]];
+//                    } else {
+//                        _bubbleView.imageView.image = image;
+//                    }
+//                } else {
+//                    _bubbleView.imageView.image = image;
+//                }
+                EMImageMessageBody *imageBody = (EMImageMessageBody*)[model.message body];
+                NSString *localPath = model.message == nil ? model.fileLocalPath : [imageBody localPath];
+                NSURL *imageUrl;
+                if (localPath && localPath.length > 0) {
+                    UIImage *image = [UIImage imageWithContentsOfFile:localPath];
+                    if (image) {
+                        imageUrl = [NSURL fileURLWithPath:localPath];
+                    }else {
+                        imageUrl = [NSURL URLWithString:imageBody.thumbnailRemotePath];
                     }
-                } else {
-                    _bubbleView.imageView.image = image;
+                }else {
+                    imageUrl = [NSURL URLWithString:imageBody.thumbnailRemotePath];
                 }
+                [_bubbleView.imageView sd_setImageWithURL:imageUrl placeholderImage:_model.thumbnailImage];
+//                第三方修改结束
             }
                 break;
             case EMMessageBodyTypeLocation:

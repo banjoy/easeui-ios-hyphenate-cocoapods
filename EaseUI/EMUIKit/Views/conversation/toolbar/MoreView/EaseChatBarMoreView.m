@@ -150,10 +150,15 @@
     [btn setImage:aImage forState:UIControlStateNormal];
     [btn setImage:aHighLightedImage forState:UIControlStateHighlighted];
     [btn setTitle:aTitle forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize: 12.0];
+//    第三方修改
+//    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    btn.titleLabel.font = [UIFont systemFontOfSize: 12.0];
     btn.imageEdgeInsets = UIEdgeInsetsMake(-10, 0, 20, 0);
-    btn.titleEdgeInsets = UIEdgeInsetsMake(14, -60, -20, 0);
+//    btn.titleEdgeInsets = UIEdgeInsetsMake(14, -60, -20, 0);
+    btn.titleEdgeInsets = UIEdgeInsetsMake(30, -60, -20, 0);
+    [btn setTitleColor:[UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1] forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize: 10.0];
+//    第三方修改结束
     return btn;
 }
 
